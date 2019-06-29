@@ -20,4 +20,20 @@
         </div>
     </div>
 </div>
+
+
+<p>
+
+    <ul>
+
+        <li> <a href="/projects">show my projects</a></li>
+
+        <li> <a href="/projects/create">create a new project</a></li>
+
+    </ul>
+
+</p>
+
 @endsection
+
+

@@ -5,9 +5,9 @@ use App\Notifications\SubscriptionRenewalFailed;
 
 Route::get('/', function () {
 
-	$user = App\User::first();
+//	$user = App\User::first();
 
-	$user->notify(new SubscriptionRenewalFailed);
+//	$user->notify(new SubscriptionRenewalFailed);
 
 	return view('welcome');
 });

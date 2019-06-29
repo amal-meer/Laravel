@@ -20,9 +20,6 @@ class ProjectsController extends Controller
 
     public function index(){
 
-
-
-
 		return view('projects.index',[
 		
 			'projects' => auth()->user()->projects
@@ -34,7 +31,7 @@ class ProjectsController extends Controller
 
 	public function create(){
 	
-		return view('projects.create');
+ 		return view('projects.create');
 	}
 
 
@@ -99,8 +96,6 @@ class ProjectsController extends Controller
 			'title' => ['required','min:3','max:255'],
 			'description' => ['required','min:10']
 		]);
-
-
 	}
 
 }
