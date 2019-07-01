@@ -1,73 +1,50 @@
-@extends('layout')
-
 @section('title','Create Article')
 
-@section('content')
+@extends('layout')
 
+@section('card')
+                <div class="card-header">{{ __('Write your article') }}</div>
 
-    <h1 class="title">Create a new Article</h1>
+                <div class="card-body">
+                    <form method="POST" action="/Articles">
+                        @csrf
 
-    <form method="POST" action="/Articles">
+                        <div class="form-group row">
+                            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
-        @csrf
+                            <div class="col-md-6">
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title">
 
-        <div class="field">
+                                @error('title')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-            <label class="label" for="title">Article title</label>
+                        <div class="form-group row">
+                            <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('content') }}</label>
 
+                            <div class="col-md-6">
+                                <input style="text-align: start; height:200px;" id="content" type="text" class="form-control @error('content') is-invalid @enderror" name="content" value="{{ old('content') }}" required autocomplete="content">
 
-            <div class="control">
+                                @error('content')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-                <input
-                        type="text"
-                        class="input  {{$errors->has('title')? 'is-danger':''}}"
-                        name="title"
-                        value="{{old('title')}}"
-                        required>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Add article') }}
+                                </button>
+                            </div>
+                        </div>
 
-            </div>
-
-        </div>
-
-
-
-        <div class="field">
-
-            <label class="label" for="content">Article content</label>
-
-
-            <div class="control">
-
-			<textarea
-                    name="content"
-                    class="textarea {{$errors->has('content')? 'is-danger':''}}"
-                    required
-                    value=
-            >{{old('content')}}</textarea>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="field">
-
-            <div class="control">
-
-                <button type="submit" class="button is-link">Create Article</button>
-
-            </div>
-
-        </div>
-
-
-
-        @include('errors')
-
-
-    </form>
-
-
-
+                    </form>
+                </div>
 @endsection

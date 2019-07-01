@@ -1,6 +1,6 @@
 @if ($errors->any())
 
-	<div class="notification is-danger">
+	<div>
 		<ul>
 			@foreach ($errors->all() as $error)
 

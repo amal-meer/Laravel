@@ -1,22 +1,34 @@
 @extends('layout')
 
-@section('title','Show all Article')
+@section('title', 'Show '.$title)
 
 @section('content')
 
-    @foreach($articles as $article)
 
-        <li>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
 
-            <a href="/Articles/{{$article->id}}">
+                <div class="card-header">
+                    {{$title}}
+                </div>
 
-                {{$article->title}}
+                @foreach($articles as $article)
+                    <a href="/Articles/{{$article->id}}">
 
-            </a>
+                        <div class="card-body border">
+                            {{$article->title}}
+                        </div>
 
-        </li>
+                    </a>
+                @endforeach
 
+             </div>
+            {{ $articles->links() }}
+        </div>
+    </div>
+</div>
 
-    @endforeach
 
 @endsection

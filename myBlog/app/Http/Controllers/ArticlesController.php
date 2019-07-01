@@ -3,91 +3,77 @@
 namespace App\Http\Controllers;
 
 use App\Articles;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ArticlesController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $articles = Articles::all();
 
-        return view("index",compact('articles'));
+class ArticlesController extends Controller{
+
+
+    public function __construct(){
+
+        $this->middleware('auth')->except('index','show');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function index()
+    {
+        $articles = DB::table('Articles')->paginate(8);
+
+        $title = 'all articles';
+
+        return view("index",compact('articles'),compact('title'));
+    }
+
+
     public function create()
     {
         return view("create");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store()
     {
         $attributes = $this->validateArticle();
 
-        Articles::create(['owner' => auth()->id()] + $attributes);
+        Articles::create(['user_id' => auth()->id()] + $attributes);
 
-        return redirect('/Articles');
+        return redirect('/UserArticles');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Articles $articles)
+
+    public function show(Articles $Article)
     {
-        return view("show",compact('articles'));
+        return view("show",compact('Article'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Articles $articles)
+
+    public function edit(Articles $Article)
     {
-        //
+        $this->authorize('update',$Article);
+
+        return view("edit",compact('Article'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Articles $articles)
+
+    public function update(Articles $Article)
     {
-        //
+        $this->authorize('update',$Article);
+
+        $Article->update($this->validateArticle());
+
+        return redirect('/Articles/'.$Article->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Articles  $articles
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Articles $articles)
+
+    public function destroy(Articles $Article)
     {
-        //
+        $this->authorize('update',$Article);
+
+        $Article->delete();
+
+        return redirect('/UserArticles');
     }
 
 

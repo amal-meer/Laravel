@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Articles extends Model
 {
     protected $fillable = [
-        'owner','title', 'content',
+        'user_id','title', 'content',
     ];
 
     public function owner(){
@@ -18,7 +18,7 @@ class Articles extends Model
 
     public function comments(){
 
-        return $this->hasMany(User::class);
+        return $this->hasMany(Comments::class);
 
     }
 

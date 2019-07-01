@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comments extends Model
 {
     protected $fillable = [
-        'Content',
+        'user_id','articles_id','Content',
     ];
 
     public function owner(){
