@@ -10,7 +10,6 @@ Vue.component('card', require('./components/Card.vue').default);
 
 Vue.component('my-button', require('./components/Button.vue').default);
 
-Vue.component('input-field', require('./components/Input.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
