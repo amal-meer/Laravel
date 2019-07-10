@@ -4,31 +4,20 @@
 
 @section('content')
 
+    <card header="{{$title}}">
+        @foreach($articles as $article)
+            <a href={{route('Articles.show',['Article' => $article->id])}}>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-
-                <div class="card-header">
-                    {{$title}}
+                <div class="card-body border">
+                    {{$article->title}}
                 </div>
 
-                @foreach($articles as $article)
-                    <a href="/Articles/{{$article->id}}">
+            </a>
+        @endforeach
 
-                        <div class="card-body border">
-                            {{$article->title}}
-                        </div>
+    </card>
 
-                    </a>
-                @endforeach
-
-             </div>
-            {{ $articles->links() }}
-        </div>
+    <div class="row justify-content-center">
+        {{ $articles->links() }}
     </div>
-</div>
-
-
 @endsection

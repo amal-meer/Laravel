@@ -17,7 +17,7 @@ class ArticlesController extends Controller{
 
     public function index()
     {
-        $articles = DB::table('Articles')->paginate(8);
+        $articles = DB::table('Articles')->orderBy('created_at','desc')->paginate(8);
 
         $title = 'all articles';
 
@@ -45,7 +45,6 @@ class ArticlesController extends Controller{
     public function show(Articles $Article)
     {
         return view("show",compact('Article'));
-
     }
 
 

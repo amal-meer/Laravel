@@ -14,7 +14,7 @@ class UserArticlesController extends Controller
 
     public function index()
     {
-        $articles = Articles::where('user_id',auth()->id())->paginate(8);
+        $articles = Articles::where('user_id',auth()->id())->orderBy('created_at','desc')->paginate(8);
 
         $title = 'my articles';
 

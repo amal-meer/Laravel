@@ -2,36 +2,36 @@
 
 @section('title','myBlog')
 
-@section('card')
-    <div class="card-header">Dashboard</div>
+@section('content')
 
-    <a href="/Articles">
+    <card header="Dashboard">
 
         <div class="card-body">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Show all articles') }}
-            </button>
+
+            <a href={{ route('Articles.index') }}>
+
+                <my-button text="Show all articles"></my-button>
+
+            </a>
+
+        @auth
+
+            <a href={{ route('UserArticles.index') }}>
+
+                <my-button text="Show my articles"></my-button>
+
+            </a>
+
+            <a href={{ route('Articles.create') }}>
+
+                <my-button text="Create a new article"></my-button>
+
+            </a>
+
+        @endauth
+
         </div>
-    </a>
 
-    @auth
-        <a href="/UserArticles">
-
-            <div class="card-body">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Show my articles') }}
-                </button>
-            </div>
-        </a>
-
-        <a href="/Articles/create">
-
-            <div class="card-body">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Create a new article') }}
-                </button>
-            </div>
-        </a>
-    @endauth
+    </card>
 
 @endsection

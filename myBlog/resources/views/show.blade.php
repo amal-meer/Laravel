@@ -2,108 +2,90 @@
 
 @section('title',$Article->title)
 
-
 @section('content')
 
-   <div class="container">
-      <div class="row justify-content-center">
-         <div class="col-md-8">
-            <div class="card">
-               <div class="card-header">{{$Article->title}}</div>
+    <card header="{{$Article->title}}">
+        <div class="card-body">
 
-               <div class="card-body">
-                     {{$Article->content}}
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+            {{$Article->content}}
 
+        </div>
+    </card>
 
-
-
-   @auth
-       @can('update',$Article)
 
             <!-- The edit link -->
 
-   <div class="container">
-      <div class="row justify-content-center">
-         <div class="col-auto">
-            <a href="/Articles/{{$Article->id}}/edit">
+    @auth
+        @can('update',$Article)
 
-               <button style="margin:10px" type="submit" class="btn btn-primary">
-                  {{ __('EDIT') }}
-               </button>
-            </a>
-         </div>
+            <div class="container">
+                <div class="row justify-content-center">
 
-
-            <!-- The delete action -->
-         <div class="col-auto">
-            <form method="POST" action="/Articles/{{ $Article->id }}">
-
-               @csrf
-
-               @method('DELETE')
-
-               <button style="margin:10px" type="submit" class="btn btn-primary">
-                  {{ __('DELETE') }}
-               </button>
-
-            </form>
-         </div>
-       </div>
-   </div>
-
-       @endcan
-   @endauth
+                    <a href= {{route('Articles.edit',['Article' => $Article])}}>
+                        <my-button text="EDIT"></my-button>
+                    </a>
 
 
 
-            {{--show comments--}}
+                    <!-- The delete action -->
 
-   <div style="margin-top:15px" class="container">
-      <div class="row justify-content-center">
-         <div class="col-8">
+                    <form method="POST" action="/Articles/{{ $Article->id }}">
 
-         <div class="card">
-            <div class="card-header">Comments</div>
-
-
-            @foreach($Article->comments as $comment)
-
-               <div class="card-body">
-                  {{$comment->Content}}
-               </div>
-
-             @endforeach
-
-         </div>
-
-
-
-            {{-- Add comments form --}}
-
-            @auth
-                 <div style="margin-top:15px" class="card">
-                     <div class="card-header">Add your comment</div>
-
-                        <form method="POST" action="/Articles/{{$Article->id}}/comments">
                         @csrf
 
-                            <div class="card-body">
-                            <input style="text-align: start; height:50px;" id="comment" type="text" class="form-control" name="comment" value="{{ old('comment') }}" required>
+                        @method('DELETE')
 
-                            <button style="margin-top:5px" type="submit" class="btn btn-primary">
-                               {{ __('ADD') }}
-                            </button>
-                      </div>
+                        <my-button text="DELETE"></my-button>
+
+                    </form>
+
                 </div>
-            @endauth
+            </div>
 
-         </div>
-      </div>
-   </div>
+        @endcan
+    @endauth
+
+
+
+    {{--show comments--}}
+
+
+    <card header="Comments">
+
+        @foreach($Article->comments as $comment)
+
+            <div class="card-body border">
+
+                {{$comment->Content}}
+
+            </div>
+
+        @endforeach
+
+    </card>
+
+
+
+    {{-- Add comments form --}}
+
+    @auth
+
+    <card header="Add your comment">
+        <form method="POST" action="/Articles/{{$Article->id}}/comments">
+
+            @csrf
+
+            <div class="card-body">
+
+                <input style="text-align: start; height:50px;" id="comment" type="text" class="form-control" name="comment" value="{{ old('comment') }}" required>
+
+                <my-button text="ADD"></my-button>
+
+            </div>
+
+        </form>
+    </card>
+
+    @endauth
 
 @endsection
